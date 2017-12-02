@@ -1,6 +1,6 @@
 package me.sueka.clipboard
 
-import java.awt.Toolkit
+import java.awt.{ Toolkit, Image }
 import java.awt.datatransfer.{ DataFlavor, StringSelection }
 import scala.util.Try
 import scalaz.effect.IO
@@ -34,5 +34,19 @@ object Clipboard {
       case None => false
       case Some(sc) => (setClipboardString(f(sc)) >> IO(true)).unsafePerformIO
     }
+  }
+
+  /** Returns IO that will set a given Image to the clipboard.
+   *
+   *  @param image the image the clipboard will be set to
+   */
+  def setClipboardImage(image: Image): IO[Unit] = {
+    val selection = new ImageSelection(image)
+    IO(clipboard.setContents(selection, selection))
+  }
+
+  /** Return IO that get an optional Image out of the clipboard. */
+  def getClipboardImage: IO[Option[Image]] = {
+    IO(Try(clipboard.getData(DataFlavor.imageFlavor).asInstanceOf[Image]).toOption)
   }
 }
