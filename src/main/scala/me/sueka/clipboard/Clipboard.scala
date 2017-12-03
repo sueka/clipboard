@@ -2,7 +2,7 @@ package me.sueka.clipboard
 
 import java.awt.{ Toolkit, Image }
 import java.awt.datatransfer.{ DataFlavor, StringSelection }
-import scala.util.Try
+import scala.util.{ Try, Success, Failure }
 import scalaz.effect.IO
 import scalaz.Scalaz.ToBindOps
 
@@ -19,8 +19,8 @@ object Clipboard {
   }
 
   /** Returns IO that gets an optional String out of the clipboard. */
-  def getClipboardString: IO[Option[String]] = {
-    IO(Try(clipboard.getData(DataFlavor.stringFlavor).toString).toOption)
+  def getClipboardString: IO[Try[String]] = {
+    IO(Try(clipboard.getData(DataFlavor.stringFlavor).toString))
   }
 
   /** Returns IO that modifies a String of the clipboard.
@@ -31,8 +31,8 @@ object Clipboard {
     for {
       s <- getClipboardString
     } yield s match {
-      case None => false
-      case Some(sc) => (setClipboardString(f(sc)) >> IO(true)).unsafePerformIO
+      case Failure(_) => false
+      case Success(sc) => (setClipboardString(f(sc)) >> IO(true)).unsafePerformIO
     }
   }
 
@@ -46,7 +46,7 @@ object Clipboard {
   }
 
   /** Return IO that gets an optional Image out of the clipboard. */
-  def getClipboardImage: IO[Option[Image]] = {
-    IO(Try(clipboard.getData(DataFlavor.imageFlavor).asInstanceOf[Image]).toOption)
+  def getClipboardImage: IO[Try[Image]] = {
+    IO(Try(clipboard.getData(DataFlavor.imageFlavor).asInstanceOf[Image]))
   }
 }
