@@ -21,7 +21,7 @@ class ImageSelection(data: Image) extends Transferable with ClipboardOwner {
 
   def getTransferDataFlavors(): Array[DataFlavor] = flavors.clone
 
-  def isDataFlavorSupported(flavor: DataFlavor): Boolean = flavors.forall(flavor == _)
+  def isDataFlavorSupported(flavor: DataFlavor): Boolean = flavors.exists(flavor == _)
 
   def lostOwnership(clipboard: JavaClipboard, contents: Transferable): Unit = ()
 }
