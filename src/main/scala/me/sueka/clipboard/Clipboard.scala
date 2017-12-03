@@ -18,12 +18,12 @@ object Clipboard {
     IO(clipboard.setContents(selection, selection))
   }
 
-  /** Returns IO that get an optional String out of the clipboard. */
+  /** Returns IO that gets an optional String out of the clipboard. */
   def getClipboardString: IO[Option[String]] = {
     IO(Try(clipboard.getData(DataFlavor.stringFlavor).toString).toOption)
   }
 
-  /** Returns IO that modify a String of the clipboard.
+  /** Returns IO that modifies a String of the clipboard.
    *
    *  @param f the function for modifying a String.
    */
@@ -45,7 +45,7 @@ object Clipboard {
     IO(clipboard.setContents(selection, selection))
   }
 
-  /** Return IO that get an optional Image out of the clipboard. */
+  /** Return IO that gets an optional Image out of the clipboard. */
   def getClipboardImage: IO[Option[Image]] = {
     IO(Try(clipboard.getData(DataFlavor.imageFlavor).asInstanceOf[Image]).toOption)
   }
