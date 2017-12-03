@@ -11,6 +11,8 @@ lazy val root = (project in file(".")).
     description := "",
     libraryDependencies ++= Seq(
       scalaz,
-      scalazEffect
+      scalazEffect,
+      scalactic,
+      scalaTest % Test
     )
   )
