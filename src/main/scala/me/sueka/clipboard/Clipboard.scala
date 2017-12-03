@@ -9,7 +9,7 @@ import scalaz.Scalaz.ToBindOps
 object Clipboard {
   private val clipboard = Toolkit.getDefaultToolkit().getSystemClipboard()
 
-  /** Returns IO that will set a given String to the clipboard.
+  /** Returns IO that will set the clipboard to a given String.
    *
    *  @param string the string the clipboard will be set to
    */
@@ -36,7 +36,7 @@ object Clipboard {
     }
   }
 
-  /** Returns IO that will set a given Image to the clipboard.
+  /** Returns IO that will set the clipboard to a given Image.
    *
    *  @param image the image the clipboard will be set to
    */
