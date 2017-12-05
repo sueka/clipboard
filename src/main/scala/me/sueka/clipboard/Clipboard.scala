@@ -28,11 +28,9 @@ object Clipboard {
    *  @param f the function for modifying a String.
    */
   def modifyClipboardString(f: String => String): IO[Boolean] = {
-    for {
-      s <- getClipboardString
-    } yield s match {
-      case Failure(_) => false
-      case Success(sc) => (setClipboardString(f(sc)) >> IO(true)).unsafePerformIO
+    getClipboardString >>= {
+      case Failure(_) => IO(false)
+      case Success(sc) => setClipboardString(f(sc)) >> IO(true)
     }
   }
 
