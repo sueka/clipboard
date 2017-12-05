@@ -14,5 +14,10 @@ lazy val root = (project in file(".")).
       scalazEffect,
       scalactic,
       scalaTest % Test
+    ),
+    scalacOptions ++= Seq(
+      "-deprecation",
+      "-feature",
+      "-unchecked"
     )
   )
