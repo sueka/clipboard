@@ -2,6 +2,8 @@
 
 is a library to set, get, and modify the system clipboard.
 
+[![Build Status](https://travis-ci.org/sueka/clipboard.svg?branch=master)](https://travis-ci.org/sueka/clipboard)
+
 ## Usage
 
 The main method of
