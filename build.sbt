@@ -10,6 +10,7 @@ lazy val root = (project in file(".")).
     name := "Clipboard",
     description := "A Scala library to set, get, and modify the system clipboard without side effects",
     libraryDependencies ++= Seq(
+      typesafeConfig,
       scalaz,
       scalazEffect,
       scalactic,
