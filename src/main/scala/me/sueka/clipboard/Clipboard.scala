@@ -1,8 +1,8 @@
 package me.sueka.clipboard
 
-import java.awt.{ Toolkit, Image }
+import java.awt.{ Image, Toolkit }
 import java.awt.datatransfer.{ DataFlavor, StringSelection }
-import scala.util.{ Try, Success, Failure }
+import scala.util.{ Failure, Success, Try }
 import scalaz.effect.IO
 import scalaz.Scalaz.ToBindOps
 
@@ -10,9 +10,9 @@ object Clipboard {
   private val clipboard = Toolkit.getDefaultToolkit().getSystemClipboard()
 
   /** Returns IO that will set the clipboard to a given String.
-   *
-   *  @param string the string the clipboard will be set to
-   */
+    *
+    *  @param string the string the clipboard will be set to
+    */
   def setClipboardString(string: String): IO[Unit] = {
     val selection = new StringSelection(string)
     IO(clipboard.setContents(selection, selection))
@@ -24,9 +24,9 @@ object Clipboard {
   }
 
   /** Returns IO that modifies a String of the clipboard.
-   *
-   *  @param f the function for modifying a String.
-   */
+    *
+    *  @param f the function for modifying a String.
+    */
   def modifyClipboardString(f: String => String): IO[Boolean] = {
     getClipboardString >>= {
       case Failure(_) => IO(false)
@@ -35,9 +35,9 @@ object Clipboard {
   }
 
   /** Returns IO that will set the clipboard to a given Image.
-   *
-   *  @param image the image the clipboard will be set to
-   */
+    *
+    *  @param image the image the clipboard will be set to
+    */
   def setClipboardImage(image: Image): IO[Unit] = {
     val selection = new ImageSelection(image)
     IO(clipboard.setContents(selection, selection))

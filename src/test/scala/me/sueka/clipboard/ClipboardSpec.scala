@@ -11,7 +11,7 @@ class ClipboardSpec extends FlatSpec with Matchers {
     val getClipboard = Clipboard.getClipboardString
 
     val Success(string) = (setClipboard >> getClipboard).unsafePerformIO
-    string should be ("Hello, world!")
+    string should be("Hello, world!")
   }
 
   it should "set the clipboard to \"Hello, world!\", reverse it, and get \"!dlrow ,olleH\" of the clipboard" in {
@@ -20,7 +20,7 @@ class ClipboardSpec extends FlatSpec with Matchers {
     val getClipboard = Clipboard.getClipboardString
 
     val Success(string) = (setClipboard >> modifyClipboard >> getClipboard).unsafePerformIO
-    string should be ("!dlrow ,olleH")
+    string should be("!dlrow ,olleH")
   }
 
   it should "get/set the clipboard at the time of calling unsafePerformIO" in {
@@ -33,8 +33,8 @@ class ClipboardSpec extends FlatSpec with Matchers {
     val Success(banana) = (writeBanana >> read).unsafePerformIO
     val Success(ananab) = (reverse >> read).unsafePerformIO
 
-    apple should be ("apple")
-    banana should be ("banana")
-    ananab should be ("ananab")
+    apple should be("apple")
+    banana should be("banana")
+    ananab should be("ananab")
   }
 }
