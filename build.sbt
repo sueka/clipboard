@@ -1,8 +1,10 @@
 import sbt._
 
+val scalaTestTest = ProjectRef(uri("git://github.com/dotty-staging/scalatest.git#%s".format("dotty")), "scalatest-test")
+val scalactic = ProjectRef(uri("git://github.com/dotty-staging/scalatest.git#%s".format("dotty")), "scalactic")
+
 val dottyVersion = dottyLatestNightlyBuild.get
 val scalazVersion = "7.2.17"
-val scalaTestVersion = "3.0.4"
 
 lazy val root = (project in file(".")).settings(
   inThisBuild(
@@ -16,13 +18,11 @@ lazy val root = (project in file(".")).settings(
   libraryDependencies ++= Seq(
     "com.typesafe" % "config" % "1.3.1",
     ("org.scalaz" %% "scalaz-core" % scalazVersion).withDottyCompat(dottyVersion),
-    ("org.scalaz" %% "scalaz-effect" % scalazVersion).withDottyCompat(dottyVersion),
-    ("org.scalactic" %% "scalactic" % scalaTestVersion).withDottyCompat(dottyVersion),
-    ("org.scalatest" %% "scalatest" % scalaTestVersion % Test).withDottyCompat(dottyVersion)
+    ("org.scalaz" %% "scalaz-effect" % scalazVersion).withDottyCompat(dottyVersion)
   ),
   scalacOptions ++= Seq(
     "-deprecation",
     "-feature",
     "-unchecked"
   )
-)
+).dependsOn(scalaTestTest, scalactic)
